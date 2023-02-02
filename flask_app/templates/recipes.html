@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <div class="col-12 flex-d flex-column justify-content-evenly">
+        <div class="border-bottom border-dark border-2 pb-3 d-flex justify-content-around align-items-center">
+                <h2>Welcome, {{user.first_name}}</h2>
+                <a class="btn btn-dark" href="/logout" role="button">Log Out</a>
+        </div>
+        <br>
+        <div class="d-flex justify-content-around align-items-center">
+            <h3 class="p-4">All Posted Recipes:</h3>
+            <a href="/create_recipe">Create Recipe</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Under 30 min</th>
+                    <th scope="col">Posted By</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for recipe in all_recipes %}
+                <tr>
+                    <th>{{recipe.name |capitalize}}</th>
+                    <td>{{recipe.under30min}}</td>
+                    <td>{{recipe.user_id.first_name}}</td>
+                    <td>
+                        <a href="/view_recipe/{{recipe.id}}">view recipe</a>
+                        {% if user.id == recipe.user_id.id %}
+                            - <a href="/edit_recipe/{{recipe.id}}">edit</a> 
+                            - <a href="/delete_recipe/{{recipe.id}}">delete</a></td>
+                        {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </div>
+
+{% endblock %}

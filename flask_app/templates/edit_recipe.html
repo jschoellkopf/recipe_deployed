@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+        <form class="col-12" action="/update_recipe/{{recipe.id}}" method="POST">
+            <div class="d-flex flex-row justify-content-between align-items-center">
+                <h1>Edit Your Recipe!</h1>
+                <div>
+                    <a class="btn btn-dark" href="/recipes" role="button">Back to Recipes</a>
+                    <a class="btn btn-dark" href="/logout" role="button">Log Out</a>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-between align-items-center">
+                <div class="col-7">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" value="{{recipe.name}}">
+                        {% with messages = get_flashed_messages(category_filter='name') %}     
+                            {% if messages %}                            
+                                {% for message in messages %}            
+                                    <p class="alert alert-danger p-1">{{message}}</p>                   
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea name="description" rows="4" class="form-control">{{recipe.description}}</textarea>
+                        {% with messages = get_flashed_messages(category_filter='description') %}     
+                            {% if messages %}                            
+                                {% for message in messages %}            
+                                    <p class="alert alert-danger p-1">{{message}}</p>                   
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="instructions" class="form-label">Instructions</label>
+                        <textarea name="instructions" rows="6" class="form-control">{{recipe.instructions}}</textarea>
+                        {% with messages = get_flashed_messages(category_filter='instructions') %}     
+                            {% if messages %}                            
+                                {% for message in messages %}            
+                                    <p class="alert alert-danger p-1">{{message}}</p>                   
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+                <div class="col-4 d-flex flex-column align-items-center">
+                    <div>
+                        <label class="pb-3" for="date">Date Cooked/Made:</label><br>
+                        <input type="date" name="date" value="{{recipe.date}}">
+                        {% with messages = get_flashed_messages(category_filter='date') %}     
+                            {% if messages %}                            
+                                {% for message in messages %}            
+                                    <p class="alert alert-danger p-1">{{message}}</p>                   
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div><br>
+                    <div class="mb-3">
+                        <p> Can be made under 30min</p>
+                        <div class="d-flex flex-row justify-content-around">
+                            {% if recipe.under30min == "Yes" %}
+                                <input type="radio" name="under30min" value="Yes" checked>
+                                <label for="under30min">Yes</label><br>
+                                <input type="radio" id="css" name="under30min" value="No">
+                                <label for="under30min">No</label><br>
+                            {% else %}
+                                <input type="radio" name="under30min" value="Yes">
+                                <label for="under30min">Yes</label><br>
+                                <input type="radio" id="css" name="under30min" value="No" checked>
+                                <label for="under30min">No</label><br>
+                            {% endif %}
+                        </div>
+                        {% with messages = get_flashed_messages(category_filter='under30min') %}     
+                            {% if messages %}                            
+                                {% for message in messages %}            
+                                    <p class="alert alert-danger p-1">{{message}}</p>                   
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-4 align-self-end">Update Recipe</button> <br>
+        </form>
+
+    
+    {% endblock  %}

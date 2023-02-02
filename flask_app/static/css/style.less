@@ -1,0 +1,21 @@
+.flexrow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+@green: #99dea1;
+@font: #212e5f;
+
+body {
+    background-color: @green;
+    color: @font;
+    border: 1px black;
+
+    main {
+        .flexrow();
+        flex-wrap: wrap;
+
+    }
+}
